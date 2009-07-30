@@ -1,0 +1,25 @@
+<div class="posts">
+	<% @posts.each do |post| %>
+	<div id="post_<%= post.id %>" class="post-synopsis has-soft">
+	  <div class="post-meta soft-text">
+			<div class="post-date">Posted <%= nice_date post.published_on.to_date %></div>
+			<div class="post-comments">
+				<a href="/<%= post.id %>.html#comments" title="Article comments"><%= post.comments.size %> Comments</a>
+				| <a href="/<%= post.id %>.html#new-comment" title="Comment on this article">New</a>
+				| <a href="http://<%= hostname %>/<%= post.id %>/feed" class="image"><img src="/images/rss.png" alt="Article comments feed (RSS)"></a>
+			</div>
+			<div class="post-tags">[<span class="label">tags</span>] <%= post.meta['categories'].join(', ') %></div>
+		</div>
+	  <h2 class="post-title">&raquo; <a href="/<%= post.id %>.html" title="<%= post.title %>"><%= post.title %></a></h2>
+	  <div class="post-preview">
+			<%= post.perex %>
+		  <p class="read-more"><a href="/<%= post.id %>.html#body" title="Read more&hellip;">Read More&hellip;</a></p>
+		</div>
+		<div class="corner top-left">&nbsp;</div>
+		<div class="corner top-right">&nbsp;</div>
+		<div class="corner bottom-left">&nbsp;</div>
+		<div class="corner bottom-right">&nbsp;</div>
+	</div>
+	<% end %>
+</div>
+

@@ -1,0 +1,513 @@
+@import "posts.css";
+
+/*
+	#bf1e2e - red
+	#414042 - dk grey
+	#777679 - md grey
+	#dddddf - lt grey
+*/
+
+*
+{
+	padding: 0;
+	margin: 0;
+}
+
+body
+{
+	font: normal 16px/155% "Lucida Sans", "Gill Sans", Tahoma, sans-serif;
+	background: #fff;
+	color: #414042;
+}
+
+h1,h2,h3,h4,h5,h6
+{
+	color: #bf1e2e;
+	font-weight: normal;
+}
+
+p
+{
+	margin: 12px 0px 0px;
+}
+
+a.image img
+{
+	margin-bottom: -4px;
+}
+
+a img,
+a[name],
+a.image,
+a.image:hover,
+a.image:visited:hover
+{
+	border: none;
+}
+
+a,
+a:visited
+{
+	color: #bf1e2e;
+	text-decoration: none;
+	border-bottom: 1px solid #bf1e2e;
+}
+
+a:hover,
+a:visited:hover
+{
+	border-bottom: 1px solid #bf1e2e;
+}
+
+form select option
+{
+	padding: 1px 3px;
+}
+
+code
+{
+	font-family: Courier;
+	font-size: .8em;
+	background-color: #ccc;
+}
+
+code.block
+{
+	border: 1px dotted #666;
+	padding: 15px;
+/*	line-height: normal;*/
+	display: block;
+	margin: 10px 20px;
+}
+
+div#wrapper
+{
+	width: 730px;
+	margin: 0 0 0 180px;
+	padding: 0;
+	border: 5px #bf1e2e;
+	border-style: solid none;
+	position: relative;
+}
+
+div#header
+{
+	position: relative;
+	height: 150px;
+}
+
+h1#logo
+{
+	position: absolute;
+	right: 65px;
+	top: 50px;
+	text-indent: -5000px;
+	width: 192px;
+	height: 65px;
+	background: url(../images/logo.jpg) no-repeat;
+	font-family: Georgia;
+}
+
+h1#logo.logo-hover
+{
+	cursor: hand;
+	cursor: pointer;
+}
+
+div#menu
+{
+	position: absolute;
+	top: 0;
+	right: 50px;
+	z-index: 950;
+}
+
+div#menu ul
+{
+	list-style: none;
+}
+
+div#menu li
+{
+	float: left;
+/*	margin: 0 5px 0 0;*/
+}
+
+div#menu li a
+{
+	text-decoration: none;
+	padding: 15px 10px 10px;
+	display: block;
+	color: #414042;
+	border: none;
+}
+
+div#menu li.current a
+{
+	padding-top: 5px;
+	border-top: 10px solid #bf1e2e;
+	color: #bf1e2e;
+}
+
+div#menu li a:hover,
+div#menu li a:visited:hover
+{
+	padding-top: 5px;
+	border-top: 10px solid #414042;
+}
+
+div#menu li.pulldown:hover a,
+div#menu li.pulldown a:hover,
+div#menu li.pulldown a:visited:hover
+{
+	border-top: 13px solid #bf1e2e;
+	color: #bf1e2e;
+}
+
+div#content
+{
+	clear: both;
+	padding: 0;
+}
+
+div#guts
+{
+}
+
+div#guts ul
+{
+	margin: 5px 5px 5px 15px;
+	padding-left: 25px;
+}
+
+div#panel
+{
+	position: absolute;
+/*	height: 200px;*/
+	top: -1000px;
+	left: 0;
+	background: #bf1e2e;
+	padding: 40px;
+	z-index: 1001;
+	color: #fff;
+}
+
+div#panel a,
+div#panel a:hover,
+div#panel a:hover:visited
+{
+	color: #fff;
+	border-color: #fff;
+}
+
+#menu.panel-open,
+#menu.panel-open li,
+#menu.panel-open a,
+#menu.panel-open a:hover,
+#menu.panel-open a:visited:hover
+{
+	color: #fff !important;
+	background: #bf1e2e !important;
+}
+
+#menu.panel-open li.current a
+{
+	border-color-top: #bf1e2e !important;
+}
+
+#menu.panel-open li a:hover,
+#menu.panel-open li a:visited:hover
+{
+	border-color-top: #fff !important;
+}
+
+#menu.panel-open li.pulldown:hover a,
+#menu.panel-open li.pulldown a:hover,
+#menu.panel-open li.pulldown a:visited:hover
+{
+	border-top: 7px solid #fff;
+	color: #fff;
+}
+
+.opaque
+{
+	opacity: .90; /* Standard: FF gt 1.5, Opera, Safari */
+	filter: alpha(opacity=90); /* IE lt 8 */
+	-ms-filter: "alpha(opacity=90)"; /* IE 8 */
+	-khtml-opacity: .90; /* Safari 1.x */
+	-moz-opacity: .90; /* FF lt 1.5, Netscape */
+}
+
+form div.row
+{
+	clear: both;
+}
+
+form div.row label
+{
+	display: block;
+	text-align: right;
+}
+
+form div.row p.label
+{
+	float: left;
+	width: 20%;
+	text-align: right;
+	font-weight: bold;
+	margin: 5px 10px !important;
+}
+
+form div.row p.input
+{
+	float: left;
+	width: 60%;
+	text-align: left;
+	margin: 5px 10px !important;
+}
+
+div#footer
+{
+	clear: both;
+}
+
+div.notice
+{
+	background: #CEFFCE;
+	color: green;
+	font-size: 12px;
+	border: 1px solid green;
+	padding: 4px;
+	margin-bottom: 10px;
+}
+
+div.error
+{
+	background: rgb(255, 235, 232);
+	border: 1px solid rgb(221, 60, 16);
+	margin: 0px 0px 10px 0px;
+	padding: 10px;
+}
+
+div.debug
+{
+	background: #FFD09A;
+	border: 1px solid #EB7300;
+	color: #000 !important;
+	font-size: 12px;
+	padding: 4px;
+	margin-bottom: 10px;
+}
+
+.required
+{
+	color: red;
+}
+
+span.required
+{
+	padding-left: 10px;
+}
+
+.soft-text
+{
+	color: #dddddf;
+}
+
+.soft-text a,
+.soft-text a:hover,
+.soft-text a:visited:hover
+{
+	color: #dddddf !important;
+	border-color: #dddddf !important;
+}
+
+.has-soft:hover .soft-text,
+.has-soft:hover .soft-text a,
+.has-soft:hover .soft-text a:hover,
+.has-soft:hover .soft-text a:visited:hover,
+.soft-text:hover,
+.soft-text:hover a,
+.soft-text:hover a:hover,
+.soft-text:hover a:visited:hover
+{
+	color: #777679 !important;
+}
+
+.has-soft:hover .soft-text a,
+.has-soft:hover .soft-text a:hover,
+.has-soft:hover .soft-text a:visited:hover,
+.soft-text:hover a,
+.soft-text:hover a:hover,
+.soft-text:hover a:visited:hover
+{
+	border-color: #777679 !important;
+}
+
+.quiet
+{
+	font-size: 11px;
+	color: #777;
+	font-style: italic;
+}
+
+a.quiet,
+.quiet a
+{
+	color: #777 !important;
+	border-color: #777 !important;
+}
+
+a.quiet:hover,
+a.quiet:visited:hover,
+.quiet a:hover,
+.quiet a:visited:hover
+{
+	color: #fb1e2e !important;
+	border-color: #fb1e2e !important;
+}
+
+.alt-row
+{
+	background: #ddd;
+}
+
+.deactivated-row
+{
+	background: #D79595;
+	color: #444;
+}
+
+.corner
+{
+	position: absolute;
+	height: 10px;
+	width: 10px;
+}
+
+.corner.top-left
+{
+	background: transparent url(../images/top-left-corner.gif) 0 0 no-repeat;
+	top: 0;
+	left: 0;
+}
+
+.corner.top-right
+{
+	background: transparent url(../images/top-right-corner.gif) 0 0 no-repeat;
+	top: 0;
+	right: 0;
+}
+
+.corner.bottom-left
+{
+	background: transparent url(../images/bottom-left-corner.gif) 0 0 no-repeat;
+	bottom: 0;
+	left: 0;
+}
+
+.corner.bottom-right
+{
+	background: transparent url(../images/bottom-right-corner.gif) 0 0 no-repeat;
+	bottom: 0;
+	right: 0;
+}
+
+.clear
+{
+	clear: both;
+}
+
+.clear-left
+{
+	clear: left;
+}
+
+.clear-right
+{
+	clear: right;
+}
+
+.float-left
+{
+	float: left;
+}
+
+.float-right
+{
+	float: right;
+}
+
+.strong
+{
+	font-weight: bold;
+}
+
+.emphasis
+{
+	font-style: italic;
+}
+
+.underline
+{
+	text-decoration: underline;
+}
+
+#admin_panel
+{
+	font-size: 11px;
+  font-family: 'Lucida Grande', Tahoma, sans-serif;
+  color: #fff;
+  background: #2e364d;
+  border-top: 2px solid #fff;
+  width: 100%;
+  height: 35px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 900;
+}
+
+#admin_panel_content
+{
+	text-align: left;
+  width: 98%;
+  padding: 10px 0px 10px 0px;
+  position:relative;
+  margin: 0 auto;
+}
+
+#admin_panel_content p
+{
+	float: left;
+	margin: 0 10px 0 0;
+}
+
+#admin_panel_content input
+{
+	margin: -5px 0 0 0;
+	padding: 0;
+}
+
+#admin_panel_content a
+{
+	color: #fff !important;
+}
+
+/* Float clearing: add cf, cf-right, or cf-left class to parent element of floated content */
+
+.cf:after
+{
+	height: 0;
+	display: block;
+	content: ".";
+	visibility: hidden;
+	clear: both;
+}
+
+/* IE Fix */
+html > body .cf
+{
+	min-height: 1px;
+	height: auto;
+}

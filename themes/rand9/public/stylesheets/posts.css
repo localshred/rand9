@@ -1,0 +1,140 @@
+/* POST SYNOPSIS */
+
+.post-synopsis
+{
+	padding: 20px;
+	position: relative;
+}
+
+.post-synopsis .post-title
+{
+	margin-bottom: 15px;
+}
+
+.post-synopsis .post-title a
+{
+	border: none;
+}
+
+.post-synopsis .post-preview
+{
+	margin: 0 20px 10px;
+}
+
+.post-synopsis .post-meta
+{
+	font-size: 12px;
+	float: right;
+	margin: 0 0 15px 20px;
+	width: 200px;
+	white-space: wrap;
+}
+
+.post-synopsis:hover
+{
+	background: #eee;
+}
+
+/* FULL POST */
+
+.post-full
+{
+	position: relative;
+}
+
+.post-full h1,
+.post-full h2,
+.post-full h3,
+.post-full h4,
+.post-full h5,
+.post-full h6
+{
+	color: #333;
+	margin: 0 0 15px;
+}
+
+.post-full #post-body h1,
+.post-full #post-body h2,
+.post-full #post-body h3,
+.post-full #post-body h4,
+.post-full #post-body h5,
+.post-full #post-body h6
+{
+	margin-top: 20px;
+}
+
+.post-full #post-title
+{
+	font-size: 20px;
+	color: #bf1e2e;
+}
+
+.post-full #post-meta-header
+{
+	position: absolute;
+	top: 35px;
+	left: -180px;
+	width: 160px;
+	text-align: right;
+	color: #dddddf;
+}
+
+.post-full #post-meta-comments,
+.post-full #post-meta-feed
+{
+	font-size: 12px !important;
+	margin: 0;
+	padding: 0 !important;
+}
+
+.post-full .post-meta
+{
+	border-top: 1px solid #bf1e2e;
+	background: #e4e5e7;
+	background: #d9dadb;
+	padding: 20px;
+	margin-top: 20px;
+}
+
+.post-full .post-meta div
+{
+	margin: 2px 0;
+}
+
+.post-full .post-meta span.label
+{
+	text-align: right;
+	background: #bebfc1;
+	padding: 3px 10px;
+	width: 130px;
+	display: inline-block;
+}
+
+.post-full #comments,
+.post-full #comment-list,
+.post-full #new-comment
+{
+	margin-top: 20px;
+}
+
+.post-full #comments .label a
+{
+	border-bottom: none;
+}
+
+.post-full #comment-list .comment
+{
+	margin: 5px 0;
+	padding: 5px;
+}
+
+.post-full #comment-list .comment p
+{
+	margin: 0;
+}
+
+.post-full #comment-list .comment.post-author
+{
+	padding: 10px;
+	background: #eee;
+}

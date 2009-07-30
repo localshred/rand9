@@ -1,0 +1,116 @@
+<div class="post-full cf">
+	
+  <h2 id="post-title">&raquo; <%=h @post.title %></h2>
+  <div id="post-meta-header" class="has-soft soft-text">
+		<div id="post-meta-date"><%= nice_date @post.published_on.to_date %></div>
+		<div id="post-meta-author"><%= Marley::Configuration.blog.author %></div>
+		<div id="post-meta-comments"><a href="#comments"><%= @post.comments.size %>&nbsp;Comments</a></div>
+	</div>
+
+  <div id="post-body">
+    <%= @post.perex %>
+		<a name="body"></a>
+    <%= @post.body_html %>
+  </div>
+  
+	<div id="meta" class="post-meta">
+		<h3>Meta</h3>
+    <div><span class="label">author</span> <%= Marley::Configuration.blog.author %></div>
+    <div><span class="label">published on</span> <%= human_date @post.published_on %></div>
+    <% if @post.published_on < @post.updated_on %>
+			<div><span class="label">last updated</span> <%= human_date @post.updated_on, {:long => true} %></div>
+		<% end %>
+    <div><span class="label">tags</span> <%= @post.meta['categories'].join(', ') %></div>
+    <div><span class="label">share</span> [twitter] [facebook] [etc]</div>
+	</div>
+
+  <div id="comments" class="post-meta">
+    <h3>Comments <a href="http://<%= hostname %>/<%= @post.id %>/feed" class="image"><img src="/images/rss.png" alt="Article comments RSS feed"></a></h3>
+		<div><a href="#new-comment" title="Enter your comment">Post a comment</a></div>
+
+    <% if params[:spam_deleted] && authorized? %>
+	    <div class="notice">OK, <%= params[:spam_deleted] %> spam comments deleted.</div>
+    <% end %>
+
+    <% if authorized? %>
+	    <form action="/admin/<%= @post.id %>/spam" method="post">
+		    <input type="hidden" name="_method" value="delete">
+    <% end %>
+   
+		<div id="comment-list">
+	    <% if @post.comments.size <= 0 %>
+				<div class="quiet">No comments found. Add yours below!</div>
+	    <% else %>
+		    <% @post.comments.each_with_index do |comment, index| %>
+			    <% if params[:thank_you] && comment == @post.comments.last %>
+				    <div class="notice clear" style="margin: 10px 0;">Thank you for your comment!</div>
+			    <% end %>
+		
+			    <div class="comment<%= ' spam' if comment.spam? %><%= ' post-author' if comment.author == Marley::Configuration.blog.author %>" id="comment_<%= comment.id %>">
+			      <% if authorized? %>
+				      <div class="comment_controls">
+					      <input type="checkbox" name="spam_comment_ids[]" value="<%= comment.id %>" id="spam_comment_id_<%= comment.id %>"<%= ' checked="checked"' if comment.spam? %>>
+					      <label for="spam_comment_id_<%= comment.id %>">Spam?</label>
+				      </div><!-- /comment_controls -->
+			      <% end %>
+     
+						<% author = '<span class="author label">'+(!comment.url.strip.empty? ? "<a href=\"#{h(comment.url)}\">#{h(comment.author)}</a>" : h(comment.author))+'</span> ' %>
+		        <%= markup author+h(comment.body) %>
+		      </div>
+		    <% end %>
+	    <% end %>
+		</div>
+
+  </div>
+
+  <div id="new-comment" class="cf post-meta">
+    <h3>Add Comment</h3>
+
+		<% if @comment && @comment.errors %><div class="error clear">The following highlighted fields are required in order to submit your comment:</div><% end %>
+    <form action="/<%= @post.id %>/comments#new-comment" method="post" accept-charset="utf-8">
+			<div class="row cf<% if @comment && @comment.errors && @comment.errors.on(:author) %> error<% end %>">
+      	<p class="label"><label>Your name:</label></p>
+        <p class="input">
+					<input type="text" class="text" name="author" value="<%= @comment.author if @comment %>" id="new-comment-author">
+					<span>(required)</span>
+				</p>
+			</div>
+      
+			<div class="row cf<% if @comment && @comment.errors && @comment.errors.on(:email) %> error<% end %>">
+      	<p class="label"><label>Your e-mail:</label></p>
+        <p class="input">
+        	<input type="text" class="text" name="email" value="<%= @comment.email if @comment %>" id="new-comment-email">
+	        <span>(required, won't be displayed)</span>
+				</p>
+			</div>
+
+			<div class="row cf">
+      	<p class="label"><label>Your website:</label></p>
+        <p class="input"><input type="text" class="text" name="url" value="<%= @comment.url if @comment %>" id="new-comment-url"></p>
+			</div>
+
+			<div class="row cf<% if @comment && @comment.errors && @comment.errors.on(:body) %> error<% end %>">
+      	<p class="label"><label>Comment:</label></p>
+        <p class="input">
+	        <textarea name="body" rows="8" cols="40" id="new-comment-body"><%= @comment.body if @comment %></textarea><br>
+	        <span class="quiet"><a href="http://daringfireball.net/projects/markdown/" title="John Gruber's Markdown">Markdown</a> syntax allowed</span>
+				</p>
+			</div>
+			
+			<div class="row cf">
+      	<p class="label">&nbsp;</p>
+        <p class="input"><input class="submit" type="submit" value="Send message &rarr;" accesskey="s"></p>
+			</div>
+		</form>
+	</div>
+
+</div>
+
+<% if authorized? %>
+<div id="admin_panel"><div id="admin_panel_content">
+  <p>MARLEY ADMIN PANEL</p>
+  <p><input type="submit" value="Delete marked comments as spam. Careful."></p>
+  </form>
+</div></div>
+<% end %>
+
