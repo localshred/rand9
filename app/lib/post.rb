@@ -95,15 +95,20 @@ module Marley
 
       post[:perex]        = RDiscount::new( file_content.scan( self.regexp[:perex] ).first.to_s.strip ).to_html unless options[:except].include? 'perex' or
                                                                                       not options[:only].include? 'perex'
+                                                                                      
       post[:body]         = body                                                      unless options[:except].include? 'body' or
                                                                                       not options[:only].include? 'body'
+                                                                                      
       post[:body_html]    = RDiscount::new( body ).to_html                            unless options[:except].include? 'body_html' or
                                                                                       not options[:only].include? 'body_html'
+                                                                                      
       post[:meta]         = ( meta_content ) ? YAML::load( meta_content.scan( self.regexp[:meta]).to_s ) : 
                                                {} unless options[:except].include? 'meta' or not options[:only].include? 'meta'
                                                                                       not options[:only].include? 'published_on'
+                                                                                      
       post[:updated_on]   = File.mtime( file )                                        unless options[:except].include? 'updated_on' or
                                                                                       not options[:only].include? 'updated_on'
+                                                                                      
       post[:published]    = !dirname.match(/\.draft$/)                                unless options[:except].include? 'published' or
                                                                                       not options[:only].include? 'published'
       return post
@@ -114,7 +119,7 @@ module Marley
         :title => /^#\s*(.*)\s+$/,
         :title_with_date => /^#\s*(.*)\s+\(([-0-9\/:. ]+)\)$/,
         :published_on => /.*\s+\(([0-9\/]+)\)$/,
-        :perex => /^([^\#\n]+\n)$/, 
+        :perex => /^summary: ([^\#\n]+\n)$/i, 
         :meta  => /^\{\{\n(.*)\}\}\n$/mi # Multiline Regexp 
       } 
     end

@@ -131,6 +131,8 @@ helpers do
     puts "#{diff} days different"
     if diff == 0
       result = 'Today'
+    elsif diff == 1
+      result = "Yesterday"
     elsif diff <= 7
       result = "#{diff} days ago"
     elsif diff <= 30
