@@ -192,12 +192,22 @@ div#guts ul
 div#panel
 {
 	position: absolute;
-/*	height: 200px;*/
 	top: -1000px;
 	left: 0;
 	background: #bf1e2e;
 	padding: 40px;
 	z-index: 1001;
+	color: #fff;
+}
+
+div#panel p,
+div#panel h1,
+div#panel h2,
+div#panel h3,
+div#panel h4,
+div#panel h5,
+div#panel h6
+{
 	color: #fff;
 }
 
