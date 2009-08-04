@@ -1,0 +1,1 @@
+The rand9.com blog was built on top of the Marley blog engine (http://github.com/karmi/marley/), and has been modified and enhanced to suit our needs better. Please contact me if you have any questions.

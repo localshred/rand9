@@ -8,7 +8,7 @@
 	</div>
 
   <div id="post-body">
-    <%= @post.perex %>
+    <%= @post.summary %>
 		<a name="body"></a>
     <%= @post.body_html %>
   </div>
@@ -20,7 +20,7 @@
     <% if @post.published_on < @post.updated_on %>
 			<div><span class="label">last updated</span> <%= human_date @post.updated_on, {:long => true} %></div>
 		<% end %>
-    <div><span class="label">tags</span> <%= @post.meta['categories'].join(', ') %></div>
+    <div><span class="label">tags</span> <%= @post.tags.join(', ') %></div>
     <div><span class="label">share</span> [twitter] [facebook] [etc]</div>
 	</div>
 

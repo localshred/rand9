@@ -9,7 +9,7 @@ li   { list-style-type: none; margin-bottom: 1em; }
 li span.perex  { font-size: 95%; color: #444; }
 #article .body { border-bottom: 1px solid #ccc; }
 
-#article .categories { font-size: 80%; color: #999; }
+#article .tags { font-size: 80%; color: #999; }
 
 .comment       { margin: 1em 0 1em 0; border-bottom: 1px solid #fafafa; }
 
