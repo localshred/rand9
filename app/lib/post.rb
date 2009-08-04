@@ -3,7 +3,7 @@ require 'date'
 module Marley
 
   # = Articles
-  # Data source is Marley::Configuration.data_directory (set in <tt>config.yml</tt>)
+  # Data source is Marley::Configuration.blog_directory (set in <tt>config.yml</tt>)
   class Post
     
     attr_reader :id, :meta, :title, :summary, :published_on, :tags, :body, :body_html, :updated_on, :published, :comments
@@ -63,9 +63,9 @@ module Marley
     # Returns directories in data directory. Default is published only (no <tt>.draft</tt> in name)
     def self.load_directories_with_posts(options={})
       if options[:draft]
-        Dir[File.join(Configuration.data_directory, '*')].select { |dir| File.directory?(dir)  }.sort
+        Dir[File.join(Configuration.blog_directory, '*')].select { |dir| File.directory?(dir)  }.sort
       else
-        Dir[File.join(Configuration.data_directory, '*')].select { |dir| File.directory?(dir) and not dir.include?('.draft')  }.sort
+        Dir[File.join(Configuration.blog_directory, '*')].select { |dir| File.directory?(dir) and not dir.include?('.draft')  }.sort
       end
     end
     

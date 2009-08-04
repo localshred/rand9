@@ -17,6 +17,7 @@ namespace :app do
   desc "Install the fresh application"
   task :install do
     Rake::Task['app:install:create_data_directory'].invoke
+    Rake::Task['app:install:create_static_link'].invoke
     Rake::Task['app:install:create_database_for_comments'].invoke
     Rake::Task['app:install:create_sample_article'].invoke
     Rake::Task['app:install:create_sample_comment'].invoke
@@ -24,10 +25,25 @@ namespace :app do
     Rake::Task['app:start'].invoke
   end
   namespace :install do
+    
+    desc "Create the directory structure to hold the blog, project, and static data"
     task :create_data_directory do
       puts "* Creating data directory in " + Marley::Configuration.data_directory
       FileUtils.mkdir_p( Marley::Configuration.data_directory )
+      puts "* Creating blog directory in " + Marley::Configuration.blog_directory
+      FileUtils.mkdir_p( Marley::Configuration.blog_directory )
+      puts "* Creating projects directory in " + Marley::Configuration.projects_directory
+      FileUtils.mkdir_p( Marley::Configuration.projects_directory )
+      puts "* Creating static directory in " + Marley::Configuration.static_directory
+      FileUtils.mkdir_p( Marley::Configuration.static_directory )
     end
+    
+    desc "Sym link the static data directory to the them in use"
+    task :create_static_link do
+      puts "Linking static directory #{Marley::Configuration.static_directory} to #{Marley::Configuration.theme.static.to_s}"
+      FileUtils.symlink(Marley::Configuration.static_directory, Marley::Configuration.theme.static.to_s)
+    end
+    
     desc "Create database for comments"
     task :create_database_for_comments do
       puts "* Creating comments SQLite database in #{Marley::Configuration.data_directory}/comments.db"
@@ -36,10 +52,12 @@ namespace :app do
                                              )
       load( File.join( MARLEY_ROOT, 'config', 'db_create_comments.rb' ) )
     end
+    
     task :create_sample_article do
       puts "* Creating sample article"
       FileUtils.cp_r( File.join(MARLEY_ROOT, 'app', 'test', 'fixtures', '001-test-article-one'), Marley::Configuration.data_directory )
     end
+    
     task :create_sample_comment do
       require 'vendor/akismetor'
       puts "* Creating sample comment"

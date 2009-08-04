@@ -28,7 +28,7 @@ configure do
   # Establish database connection
   ActiveRecord::Base.establish_connection(
     :adapter => 'sqlite3',
-    :database => File.join(Marley::Configuration.data_directory, 'comments.db')
+    :database => File.join(Marley::Configuration.blog_directory, 'comments.db')
   )
   # Set paths to views and public
   set :views  => Marley::Configuration.theme.views.to_s

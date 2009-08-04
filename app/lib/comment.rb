@@ -3,7 +3,7 @@ require File.join(File.dirname(__FILE__), '..', '..', 'vendor', 'akismetor') unl
 module Marley
 
   # = Comments for articles
-  # .db file is created in Marley::Configuration.data_directory (set in <tt>config.yml</tt>)
+  # .db file is created in Marley::Configuration.blog_directory (set in <tt>config.yml</tt>)
   class Comment < ActiveRecord::Base
 
     belongs_to :post

@@ -29,6 +29,10 @@ module Marley
       Pathname.new( File.join(themes_directory, name, 'public') )
     end
 
+    def static
+      Pathname.new( File.join(public, 'static') )
+    end
+
     def default_theme_name
       'default'
     end
@@ -68,6 +72,18 @@ module Marley
 
       def data_directory_path
         Pathname.new( File.join(MARLEY_ROOT, data_directory) )
+      end
+
+      def blog_directory_path
+        Pathname.new( File.join(MARLEY_ROOT, blog_directory) )
+      end
+
+      def projects_directory_path
+        Pathname.new( File.join(MARLEY_ROOT, projects_directory) )
+      end
+
+      def static_directory_path
+        Pathname.new( File.join(MARLEY_ROOT, static_directory) )
       end
 
       def theme
