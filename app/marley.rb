@@ -38,7 +38,7 @@ end
 configure :development, :production do
   # Create database and schema for comments if not present
   unless Marley::Comment.table_exists?
-    puts "* Creating comments SQLite database in #{Marley::Configuration.data_directory}/comments.db"
+    puts "* Creating comments SQLite database in #{Marley::Configuration.blog_directory}/comments.db"
     load( File.join( MARLEY_ROOT, 'config', 'db_create_comments.rb' ) )
   end
 end
@@ -236,7 +236,7 @@ end
 get '/:post_id/*' do
   file = params[:splat].to_s.split('/').last
   redirect "/#{params[:post_id]}.html" unless file
-  send_file( Marley::Configuration.data_directory_path.join(params[:post_id], file), :disposition => 'inline' )
+  send_file( Marley::Configuration.blog_directory_path.join(params[:post_id], file), :disposition => 'inline' )
 end
 
 post '/sync' do
