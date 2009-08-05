@@ -34,17 +34,18 @@
 
 				<img src="http://www.gravatar.com/avatar/c8ef74aab2e973ba0f7da5557e0ba9a9?s=128&d=identicon&r=PG" alt="BJ Neilsen" style="float: left; padding: 10px 10px 10px 0;">
 				
-				<p>rand9 is the brainchild of BJ Neilsen; Software Developer, Outdoor Enthusiast, Husband, and Father of two. Hi.</p>
-				<p>I love to focus on creating and deploying complex web systems. The internet has been my canvas for over a decade. I'm constantly reﬁning development practices to implement smart, fast, and efﬁcient solutions. I excel at building software that brings the right experience to the customer.</p>
+				<p>rand9 is the brainchild of BJ Neilsen; Software Developer, Designer, Outdoor Enthusiast, Husband, and Father of two. Hi.</p>
+				<p>I love to focus on creating and deploying complex web systems. The internet has been my canvas for over a decade. I'm constantly reﬁning development practices to implement smart, fast, and efficient solutions. I excel at building software that brings the right experience to the customer.</p>
 				<p>While the majority of my career focus has been on the web platform, recent projects have taken me into the mobile development arena, most notable for the iPhone platform. For an exhaustive look at my technical DNA, please refer to my <a href="/static/resume.pdf" title="BJ Neilsen's R&eacute;sum&egrave;">r&eacute;sum&egrave;</a>.</p>
-				<p id="copyright">&copy; 2008<%= (Time.now.year > 2008 ? '-'+Time.now.year.to_s : '') %> <%= rand9text true %>, LLC</p>
+				<p>I also <a href="http://www.twitter.com/localshred" title="Twitter @localshred">tweet</a> and have a personal <a href="http://bjneilsen.wordpress.com" title="My personal blog">blog</a> where I disorganize all my non-tech-related thoughts.</p>
+				<p id="copyright" class="quiet">All content &copy; 2008<%= (Time.now.year > 2008 ? '-'+Time.now.year.to_s : '') %> <%= rand9text true %>, LLC</p>
 			</div>
 			
 			<div id="header">
 				<h1 id="logo" title="rand9 Technologies"><a href="/" title="Home"><%= rand9text true %></a></h1>
 				<div id="menu">
 					<ul class="cf">
-						<li<%= ' class="current"' if !is_cur_nav?('projects') %>><a href="/" title="Blog home">blog</a></li>
+						<li<%= ' class="current"' if !is_cur_nav?('projects') %>><a href="/" title="blog home">blog</a></li>
 						<li<%= ' class="current"' if is_cur_nav?('projects') %>><a href="/projects" title="About rand9"x>projects</a></li>
 						<li class="pulldown"><a href="javascript:void(0);" title="About rand9" id="about-link">about &darr;</a></li>
 					</ul>

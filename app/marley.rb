@@ -160,19 +160,19 @@ get '/' do
     @posts = Marley::Post.published
   end
   @page_title = "#{Marley::Configuration.blog.title}"
-  erb :index
+  erb :'blog/index'
 end
 
 get '/feed' do
   @posts = Marley::Post.published
   last_modified( @posts.first.updated_on ) rescue nil    # Conditinal GET, send 304 if not modified
-  builder :index
+  builder :'blog/index'
 end
 
 get '/feed/comments' do
   @comments = Marley::Comment.recent.ham
   last_modified( @comments.first.created_at ) rescue nil # Conditinal GET, send 304 if not modified
-  builder :comments
+  builder :'blog/comments'
 end
 
 get '/*?/?:post_id.html' do
@@ -181,7 +181,7 @@ get '/*?/?:post_id.html' do
   @post = Marley::Post[ params[:post_id] ]
   throw :halt, [404, not_found ] unless @post
   @page_title = "#{@post.title} #{Marley::Configuration.blog.name}"
-  erb :post 
+  erb :'blog/post'
 end
 
 post '/:post_id/comments' do
@@ -199,7 +199,7 @@ post '/:post_id/comments' do
     redirect "/"+params[:post_id].to_s+".html?thank_you=#comment_#{@comment.id}"
   else
     @page_title = "#{@post.title} #{Marley::Configuration.blog.name}"
-    erb :post
+    erb :'blog/post'
   end
 end
 
@@ -230,7 +230,7 @@ get '/:post_id/feed' do
   @post = Marley::Post[ params[:post_id] ]
   throw :halt, [404, not_found ] unless @post
   last_modified( @post.comments.last.created_at ) if @post.comments.last # Conditinal GET, send 304 if not modified
-  builder :post
+  builder :'blog/post'
 end
 
 get '/:post_id/*' do
@@ -251,11 +251,9 @@ end
 
 get '/projects' do
   puts request.inspect
-  erb :projects
+  erb :'projects/index'
 end
 
-get '/contact' do
-  erb :contact
-end
-
-# -----------------------------------------------------------------------------
+# get '/contact' do
+#   erb :contact
+# end

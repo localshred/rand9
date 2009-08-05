@@ -16,7 +16,8 @@
 	border: none;
 }
 
-.post-synopsis .post-preview
+.post-synopsis .post-preview,
+.post-synopsis .post-full
 {
 	margin: 0 20px 10px;
 }
@@ -25,9 +26,10 @@
 {
 	font-size: 12px;
 	float: right;
-	margin: 0 0 15px 20px;
-	width: 200px;
+	margin: 40px 0 15px 20px;
+	width: 150px;
 	white-space: wrap;
+	z-index: 1500;
 }
 
 .post-synopsis:hover
@@ -61,6 +63,20 @@
 .post-full #post-body h6
 {
 	margin-top: 20px;
+}
+
+.post-full p.article-image
+{
+	color: #aaa;
+	font-size: 14px;
+	text-align: center;
+	font-style: italic;
+}
+
+.post-full p.article-image a
+{
+	border-color: #aaa;
+	color: #aaa;
 }
 
 .post-full #post-title

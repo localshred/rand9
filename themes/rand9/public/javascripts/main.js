@@ -59,6 +59,10 @@ $(document).ready(function(){
 	// Post Synopsis click
 	$("div.post-synopsis").click(function(e){
 		location.href = "/"+($(this).attr("id").replace(/post_/, ""))+".html";
-		
 	});
+	
+	$("div.post-full p img").each(function(){
+		$(this).parent(0).parent(0).addClass("article-image");
+	});
+	
 });

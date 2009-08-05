@@ -85,14 +85,11 @@ module Marley
       post          = Hash.new
 
       post[:id] = dirname.sub(self.regexp[:id], '\1').sub(/\.draft$/, '')
-      # post[:meta] = (meta_content) ? YAML::load( meta_content.scan( self.regexp[:meta]).to_s ) : {}
       post[:meta] = (meta_content) ? YAML::load(meta_content.scan(self.regexp[:meta]).to_s) : {}
-      puts "...#{post[:meta].size}..."
-      post[:meta].each {|k, v| puts "'#{k}' => '#{v}'" }
       post[:title] = post[:meta]["title"].strip
       post[:published_on] = Time.parse(post[:meta]["published-on"].strip) if self.use_option?('published_on', options)
-      post[:summary] = RDiscount::new( post[:meta]["summary"] ).to_html if self.use_option?('summary', options)
-      post[:tags] = post[:meta]["tags"] if self.use_option?('tags', options)
+      post[:summary] = RDiscount::new( post[:meta]["summary"] ).to_html if self.use_option?('summary', options) && post[:meta]["summary"]
+      post[:tags] = post[:meta]["tags"].sort! if self.use_option?('tags', options)
       post[:body] = body if self.use_option?('body', options)
       post[:body_html] = RDiscount::new( body ).to_html if self.use_option?('body_html', options)
       post[:updated_on] = File.mtime(file) if self.use_option?('updated_on', options)

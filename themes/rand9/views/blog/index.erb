@@ -11,10 +11,18 @@
 			<div class="post-tags">[<span class="label">tags</span>] <%= post.tags.join(', ') %></div>
 		</div>
 	  <h2 class="post-title">&raquo; <a href="/<%= post.id %>.html" title="<%= post.title %>"><%= post.title %></a></h2>
-	  <div class="post-preview">
-			<%= post.summary %>
-		  <p class="read-more"><a href="/<%= post.id %>.html#body" title="Read more&hellip;">Read More&hellip;</a></p>
-		</div>
+		<% if post.summary != nil %>
+		  <div class="post-preview">
+				<%= post.summary %>
+			  <p class="read-more"><a href="/<%= post.id %>.html#body" title="Read more&hellip;">Read More&hellip;</a></p>
+			</div>
+		<% else %>
+			<div class="post-full">
+				<%= post.body_html %>
+				<div class="sep">&middot;&nbsp;&middot;&nbsp;&middot;</div>
+				<p><a href="/<%= post.id %>.html#new-comment" title="Comment on this article">Post your comment</a></p>
+			</div>
+		<% end %>
 		<div class="corner top-left">&nbsp;</div>
 		<div class="corner top-right">&nbsp;</div>
 		<div class="corner bottom-left">&nbsp;</div>
