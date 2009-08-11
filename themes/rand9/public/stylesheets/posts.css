@@ -4,6 +4,7 @@
 {
 	padding: 20px;
 	position: relative;
+/*	clear: both;*/
 }
 
 .post-synopsis .post-title
@@ -26,7 +27,7 @@
 {
 	font-size: 12px;
 	float: right;
-	margin: 40px 0 15px 20px;
+	margin: 20px 0 15px 20px;
 	width: 150px;
 	white-space: wrap;
 	z-index: 1500;

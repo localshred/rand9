@@ -1,6 +1,6 @@
 <div class="posts">
 	<% @posts.each do |post| %>
-	<div id="post_<%= post.id %>" class="post-synopsis has-soft">
+	<div id="post_<%= post.id %>" class="post-synopsis has-soft cf">
 	  <div class="post-meta soft-text">
 			<div class="post-date">Posted <%= nice_date post.published_on.to_date %></div>
 			<div class="post-comments">
