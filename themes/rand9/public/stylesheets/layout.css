@@ -42,7 +42,7 @@ blockquote :first-child
 ul,
 ol
 {
-	padding-left: 45px;
+	padding-left: 65px;
 }
 
 a.image img
@@ -54,7 +54,10 @@ a img,
 a[name],
 a.image,
 a.image:hover,
-a.image:visited:hover
+a.image:visited:hover,
+#ie6NoMore a,
+#ie6NoMore a:hover,
+#ie6NoMore a:visited:hover
 {
 	border: none;
 }
@@ -97,6 +100,8 @@ code.block
 blockquote
 {
 	border-left: 5px solid #aaa;
+	margin-left: 40px;
+	margin-right: 40px;
 	padding: 5px 20px 10px;
 	background: #eee;
 	font-style: italic;
