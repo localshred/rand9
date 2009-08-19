@@ -59,7 +59,10 @@ module Marley
     end
     
     def akismet_configured?
-      (!akismet_attributes[:key].nil? && !akismet_attributes[:blog].nil?)
+      (!akismet_attributes[:key].nil?
+        && !akismet_attributes[:key].strip.empty?
+        && !akismet_attributes[:blog].nil?
+        && !akismet_attributes[:blog].strip.empty?)
     end
     
   end
