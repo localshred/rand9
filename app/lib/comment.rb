@@ -14,7 +14,8 @@ module Marley
 
     validates_presence_of :author, :email, :body, :post_id
 
-    before_create :fix_urls, :check_spam
+    # before_create :fix_urls, :check_spam
+    before_create :fix_urls
 
     # No, we won't use +before_destroy+ hook, so we can delete comments without marking them as spam
     def report_as_spam
@@ -59,6 +60,8 @@ module Marley
     end
     
     def akismet_configured?
+      puts "key = '#{akismet_attributes[:key]}'"
+      puts "blog = '#{akismet_attributes[:blog]}'"
       (!akismet_attributes[:key].nil? &&
         !akismet_attributes[:key].strip.empty? &&
         !akismet_attributes[:blog].nil? &&

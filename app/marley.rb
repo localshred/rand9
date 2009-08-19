@@ -216,7 +216,7 @@ delete '/admin/:post_id/spam' do
   spam_ids = params[:spam_comment_ids].is_a?(Array) ? params[:spam_comment_ids] : [ params[:spam_comment_ids] ]
   @comments = Marley::Comment.find( spam_ids )
   @comments.each do |comment|
-    comment.report_as_spam if Sinatra::Application.production?
+    # comment.report_as_spam if Sinatra::Application.production?
     comment.destroy
   end
   redirect "#{@post.permalink}?spam_deleted=#{@comments.size}#comments"
