@@ -18,7 +18,7 @@ module Marley
 
     # No, we won't use +before_destroy+ hook, so we can delete comments without marking them as spam
     def report_as_spam
-      Akismetor.submit_spam(akismet_attributes)
+      Akismetor.submit_spam(akismet_attributes) if akismet_configured?
     end
 
     def ham?
@@ -45,8 +45,10 @@ module Marley
     end
     
     def check_spam
-      self.checked = true
-      self.spam = Akismetor.spam?(akismet_attributes)
+      if akismet_configured?
+        self.checked = true
+        self.spam = Akismetor.spam?(akismet_attributes)
+      end
       true # return true so it doesn't stop save
     end
 
@@ -54,6 +56,10 @@ module Marley
     def fix_urls
       return if self.url.strip.empty?
       self.url.strip.gsub!(/^(.*)/, 'http://\1') unless self.url =~ %r{^http://} or self.url.empty?
+    end
+    
+    def akismet_configured?
+      (!akismet_attributes[:key].nil? && !akismet_attributes[:blog].nil?)
     end
     
   end

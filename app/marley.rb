@@ -125,10 +125,7 @@ helpers do
   end
   
   def nice_date(old_date)
-    puts Date.today.strftime("Today => %Y-%m-%d")
-    puts old_date.strftime("old_date => %Y-%m-%d")
     diff = (Date.today - old_date).to_i
-    puts "#{diff} days different"
     if diff == 0
       result = 'Today'
     elsif diff == 1
@@ -193,7 +190,6 @@ post '/:post_id/comments' do
       :referrer   => request.env['REFERER'].to_s,
       :permalink  => "#{hostname}#{@post.permalink}"
   } )
-  # puts params.inspect
   @comment = Marley::Comment.create( params )
   if @comment.valid?
     redirect "/"+params[:post_id].to_s+".html?thank_you=#comment_#{@comment.id}"
@@ -250,7 +246,6 @@ post '/sync' do
 end
 
 get '/projects' do
-  puts request.inspect
   erb :'projects/index'
 end
 
