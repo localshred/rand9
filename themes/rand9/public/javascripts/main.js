@@ -13,6 +13,9 @@ $(document).ready(function(){
 	// Logo clicking
 	$("h1#logo").click(function(){ location.href = '/'; });
 	
+	// Tweets
+	$("div#tweets").tweetable({ link_to_tweet: true });
+	
 	// Pulldown panel for about
 	$("div#menu li.pulldown a").click(function(){
 		panel = $("#panel.about");

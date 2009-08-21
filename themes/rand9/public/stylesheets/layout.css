@@ -310,6 +310,46 @@ form div.row p.input
 div#footer
 {
 	clear: both;
+	background: #bbb;
+	padding: 20px;
+	position: relative;
+	margin-top: 2px;
+}
+
+#tweet-container
+{
+	margin: 20px 0;
+}
+
+#tweets span.created-date
+{
+	font-style: italic; 
+	font-size: 10px;
+	color: #aaa;
+}
+
+#tweets ul
+{
+	margin: 10px 0 0 0;
+	padding: 0;
+	height: auto;
+	border-top: 1px dotted #777;
+}
+
+#tweets li
+{
+	padding: 8px 0;
+	list-style: none;
+	border-bottom: 1px dotted #777;
+}
+
+#tweets a.hash,
+#tweets a:visited.hash,
+#tweets a:hover.hash,
+#tweets a:visited:hover.hash
+{
+	color: #777 !important;
+	border-bottom-color: #777 !important;
 }
 
 div.notice
