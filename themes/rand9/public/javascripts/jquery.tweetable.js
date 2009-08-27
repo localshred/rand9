@@ -27,7 +27,8 @@
 						item.text
 						.replace(/(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig, '<a href="$&" target="_blank">$&</a> ' ) // insert regular links
 						.replace(/#([a-z0-9_]*?)([^a-z0-9_]|$)/g, '<a href="http://search.twitter.com/search?q=%23$1" title="Search topic #$1 on twitter" target="_blank" class="hash">#$1</a> ') // insert topic hash links
-						.replace(/@([a-z0-9_]*?)([^a-z0-9_]|\(|\)|$)/g, '<a href="http://twitter.com/$1" target="_blank">@$1</a> $2') // insert user links
+						.replace(/\@([a-z0-9_]+?)([^a-z0-9_]|$)/ig, '<a href="http://twitter.com/$1" target="_blank">@$1</a> $2') // insert user links
+						// .replace(/@([a-z0-9_]+?)([^a-z0-9_]|\(|\)|$)/g, '<a href="http://twitter.com/$1" target="_blank">@$1</a> $2') // insert user links
 					);
 					if (defaults.time == true)
 						$('li#tweet-'+i).append(' <span class="created-date">'+item.created_at.substr(0,20)+'</span>');	

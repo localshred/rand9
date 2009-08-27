@@ -29,7 +29,9 @@ h1,h2,h3,h4,h5,h6
 p,
 blockquote,
 ul,
-ol
+ol,
+dl,
+hr
 {
 	margin: 20px 0px 0px;
 }
@@ -308,6 +310,11 @@ form div.row p.input
 }
 
 div#footer
+{
+	clear: both;
+}
+
+div#tweet-footer
 {
 	clear: both;
 	background: #bbb;
