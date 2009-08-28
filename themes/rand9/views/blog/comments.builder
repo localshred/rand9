@@ -8,9 +8,9 @@ xml.feed :'xml:lang' => 'en-US', :xmlns => 'http://www.w3.org/2005/Atom' do
   xml.updated(@comments.first ? rfc_date(@comments.first.created_at) : rfc_date(Time.now.utc)) if @comments.first
   @comments.each_with_index do |comment, index|
     xml.entry do |entry|
-      entry.id "http://#{hostname}/#{comment.post.id}.html#comment_#{index}"
+      entry.id "http://#{hostname}/#{Marley::Configuration.blog.pathname}/#{comment.post.id}#comment_#{index}"
       xml.updated rfc_date(comment.created_at)
-      entry.link :type => 'text/html', :href => "http://#{hostname}/#{comment.post.id}.html#comment_#{index}", :rel => 'alternate'
+      entry.link :type => 'text/html', :href => "http://#{hostname}/#{Marley::Configuration.blog.pathname}/#{comment.post.id}#comment_#{index}", :rel => 'alternate'
       entry.title "#{h comment.author} said on #{h human_date(comment.created_at)}"
       entry.content h(comment.body), :type => 'html'
       entry.author do |author|

@@ -8,11 +8,11 @@ xml.feed :'xml:lang' => 'en-US', :xmlns => 'http://www.w3.org/2005/Atom' do
   xml.updated(@posts.first ? rfc_date(@posts.first.updated_on) : rfc_date(Time.now.utc))
   @posts.each do |post|
     xml.entry do |entry|
-      entry.id "http://#{hostname}/#{post.id}.html"
-      entry.link :type => 'text/html', :href => "http://#{hostname}/#{post.id}.html", :rel => 'alternate'
+      entry.id "http://#{hostname}/#{Marley::Configuration.blog.pathname}/#{post.id}"
+      entry.link :type => 'text/html', :href => "http://#{hostname}/#{Marley::Configuration.blog.pathname}/#{post.id}", :rel => 'alternate'
       entry.updated rfc_date(post.updated_on)
       entry.title post.title
-      entry.summary post.perex, :type => 'html'
+      entry.summary post.summary, :type => 'html'
       entry.content post.body,  :type => 'html'
       entry.author do |author|
         author.name  Marley::Configuration.blog.author || hostname

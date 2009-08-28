@@ -1,6 +1,4 @@
 MARLEY_ROOT = File.join(File.expand_path(File.dirname(__FILE__)), '..') unless defined?(MARLEY_ROOT)
-
-# $LOAD_PATH.unshift File.join( File.dirname(__FILE__), '..', 'vendor/sinatra-sinatra/lib' ) # Edge Sinatra
 $LOAD_PATH.unshift File.join(File.dirname(__FILE__), '..', 'vendor')
 
 require 'rubygems'
@@ -101,7 +99,7 @@ helpers do
   end
   
   def rand9text(long=false)
-    "rand9"+(long ? " technologies" : "")
+    "rand9"+(long ? " Technologies" : "")
   end
   
   def nice_time(old_time)
@@ -156,19 +154,29 @@ helpers do
   end
   
   def post_path(post)
-    "#{blog_path}/#{post.id}.html"
+    if post.is_a?(Marley::Post)
+      post_path = post.id
+    else
+      post_path = post
+    end
+    "#{blog_path}/#{post_path}"
   end
   
   def project_path(project)
-    "#{projects_path}/#{project[:id]}.html"
+    "#{projects_path}/#{project[:id]}"
   end
 
 end
 
 # -----------------------------------------------------------------------------
 
+# Redirect old links to posts
+get '/:post_id.html*' do
+  redirect "#{post_path(params[:post_id].to_s)}#{params[:splat].to_s}"
+end
+
+# Home page
 get '/' do
-  @page_title = "#{Marley::Configuration.site.title}"
   if Sinatra::Application.environment == :development
     @post = Marley::Post.all.first
   else
@@ -179,41 +187,43 @@ get '/' do
     :title => "Consultation for Mongol Horde Applications",
     :completed_on => "2009-05-23 00:00:00"
   }
-  # @project = nil
+  
+  @page_title = "#{config.site.title} :: We build usable web applications"
   erb :home
 end
 
-get "/#{Marley::Configuration.blog.pathname}" do
+# Articles list index (blog home)
+get "/#{Marley::Configuration.blog.pathname}/?" do
   if Sinatra::Application.environment == :development
     @posts = Marley::Post.all
   else
     @posts = Marley::Post.published
   end
+  
   @page_title = "#{Marley::Configuration.blog.title}"
   erb :'blog/index'
 end
 
+# Blog articles feed
 get "/#{Marley::Configuration.blog.pathname}/feed" do
   @posts = Marley::Post.published
   last_modified( @posts.first.updated_on ) rescue nil    # Conditinal GET, send 304 if not modified
   builder :'blog/index'
 end
 
+# Blog articles comments feed
 get "/#{Marley::Configuration.blog.pathname}/feed/comments" do
   @comments = Marley::Comment.recent.ham
   last_modified( @comments.first.created_at ) rescue nil # Conditinal GET, send 304 if not modified
   builder :'blog/comments'
 end
 
-get "/#{Marley::Configuration.blog.pathname}/*?/?:post_id.html" do
-  redirect "/"+params[:post_id].to_s+'.html' unless params[:splat].first == '' || params[:splat].first == 'admin'
-  protected! if params[:splat].first == 'admin'
-  @post = Marley::Post[ params[:post_id] ]
-  throw :halt, [404, not_found ] unless @post
-  @page_title = "#{@post.title} #{Marley::Configuration.blog.name}"
-  erb :'blog/post'
+# Alias path for post comments
+get "/#{Marley::Configuration.blog.pathname}/:post_id/comments" do
+  redirect "#{post_path(params[:post_id].to_s)}\#comments"
 end
 
+# Post request to create a new comment
 post "/#{Marley::Configuration.blog.pathname}/:post_id/comments" do
   @post = Marley::Post[ params[:post_id] ]
   throw :halt, [404, not_found ] unless @post
@@ -225,17 +235,16 @@ post "/#{Marley::Configuration.blog.pathname}/:post_id/comments" do
   } )
   @comment = Marley::Comment.create( params )
   if @comment.valid?
-    redirect "/"+params[:post_id].to_s+".html?thank_you=#comment_#{@comment.id}"
+    # TODO send an email here
+    # TODO add "keep me informed of follow up comments"
+    redirect "#{post_path(params[:post_id].to_s)}?thank_you=#comment_#{@comment.id}"
   else
     @page_title = "#{@post.title} #{Marley::Configuration.blog.name}"
     erb :'blog/post'
   end
 end
 
-get "/#{Marley::Configuration.blog.pathname}/:post_id/comments" do
-  redirect "/"+params[:post_id].to_s+'.html#comments'
-end
-
+# Deleting a post comment
 delete "/#{Marley::Configuration.blog.pathname}/admin/:post_id/spam" do
   protected!
   @post = Marley::Post[ params[:post_id] ]
@@ -255,6 +264,7 @@ delete "/#{Marley::Configuration.blog.pathname}/admin/:post_id/spam" do
   redirect "#{@post.permalink}?spam_deleted=#{@comments.size}#comments"
 end
 
+# Post comments feed
 get "/#{Marley::Configuration.blog.pathname}/:post_id/feed" do
   @post = Marley::Post[ params[:post_id] ]
   throw :halt, [404, not_found ] unless @post
@@ -262,26 +272,50 @@ get "/#{Marley::Configuration.blog.pathname}/:post_id/feed" do
   builder :'blog/post'
 end
 
+# Sending a file? I have no idea why you would want this
 get "/#{Marley::Configuration.blog.pathname}/:post_id/*" do
   file = params[:splat].to_s.split('/').last
-  redirect "/#{params[:post_id]}.html" unless file
+  redirect post_path(params[:post_id].to_s) unless file
   send_file( Marley::Configuration.blog_directory_path.join(params[:post_id], file), :disposition => 'inline' )
 end
 
+# Main post path, also handles admin requests to manage the post comments
+get "/#{Marley::Configuration.blog.pathname}/*?/?:post_id" do
+  # redirect post_path(params[:post_id].to_s) unless params[:splat].first == '' || params[:splat].first == 'admin'
+  # protected! if params[:splat].first == 'admin'
+  protected! if request.env["REQUEST_PATH"] =~ /\/admin\//i
+  @post = Marley::Post[ params[:post_id] ]
+  throw :halt, [404, not_found ] unless @post
+  @page_title = "#{@post.title} #{Marley::Configuration.blog.name}"
+  erb :'blog/post'
+end
+
+# Supposedly a post commit hook that is called from github
 post '/sync' do
+  puts "!!====!!"
+  puts "!!SYNC!!"
+  puts "!!====!!"
   throw :halt, 404 and return if not Marley::Configuration.github_token or Marley::Configuration.github_token.nil?
+  puts "!!past first throw!!"
   unless params[:token] && params[:token] == Marley::Configuration.github_token
+    puts "!!you did wrong... 500!!"
     throw :halt, [500, "You did wrong.\n"] and return
   else
     # Synchronize articles in data directory to Github repo
-    system "cd #{Marley::Configuration.data_directory}; git pull origin master"
+    puts "!!synchronizing!!"
+    out = system "cd #{Marley::Configuration.data_directory}; git pull origin master"
+    puts "!!system said '#{out}'!!"
   end
 end
 
-get '/projects' do
+# Projects list index
+get '/projects/?' do
+  @page_title = "#{config.site.title} :: Projects"
   erb :'projects/index'
 end
 
-get '/contact' do
+# Contact form
+get '/contact/?' do
+  @page_title = "#{config.site.title} :: Contact"
   erb :contact
 end

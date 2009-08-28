@@ -33,7 +33,7 @@
     <% end %>
 
     <% if authorized? %>
-	    <form action="<%= Marley::Configuration.blog.pathname %>/admin/<%= @post.id %>/spam" method="post">
+	    <form action="/<%= Marley::Configuration.blog.pathname %>/admin/<%= @post.id %>/spam" method="post">
 		    <input type="hidden" name="_method" value="delete">
     <% end %>
    

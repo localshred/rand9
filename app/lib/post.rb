@@ -36,7 +36,7 @@ module Marley
     end
 
     def permalink
-      "/#{id}.html"
+      "/#{Marley::Configuration.blog.pathname}/#{id}"
     end
             
     private
