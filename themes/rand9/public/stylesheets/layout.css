@@ -272,6 +272,59 @@ div#panel a:hover:visited
 	color: #fff;
 }
 
+.featured-item
+{
+	font-size: 25px;
+	margin-top: 15px;
+}
+
+.featured-item a
+{
+	text-decoration: none;
+	border: none;
+}
+
+.split-panel .panel
+{
+	float: left;
+	width: 43%;
+	position: relative;
+	margin: 0 5px;
+	padding: 20px 20px 60px;
+	height: 150px;
+	background-color: #eee;
+}
+
+.split-panel .panel .panel-title
+{
+	text-shadow: #999 0px 0px 3px;
+/*	margin-bottom: 12px;*/
+	color: #333;
+}
+
+.split-panel .panel .goto-link
+{
+	border-top: 1px solid #aaa;
+	background-color: #ccc;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	height: 40px;
+	width: 97.4%;
+	padding: 10px 10px 0 0;
+	text-align: right;
+}
+
+.split-panel .panel .goto-link a,
+.split-panel .panel .goto-link a:hover,
+.split-panel .panel .goto-link a:visited:hover
+{
+	color: #666;
+	border-color: #666;
+	border: none;
+	text-decoration: none;
+}
+
 .opaque
 {
 	opacity: .95; /* Standard: FF gt 1.5, Opera, Safari */
@@ -307,6 +360,41 @@ form div.row p.input
 	width: 60%;
 	text-align: left;
 	margin: 5px 10px !important;
+}
+
+#lead
+{
+	text-shadow: #999 0px 0px 3px;
+	margin: 0px 0 60px;
+	text-align: center;
+}
+
+#lead h1,
+#lead h2,
+#lead h3
+{
+	color: #333;
+	margin: 0;
+	padding: 0;
+}
+
+#lead #main-lead
+{
+	font-size: 40px;
+}
+
+#lead #sub-lead,
+#lead #sub-lead a,
+#lead #sub-lead a:hover,
+#lead #sub-lead a:visited:hover
+{
+	font-size: 25px;
+	color: #888 !important;
+	margin-top: 12px;
+	border: none;
+	text-decoration: none;
+	font-style: italic;
+	text-shadow: #aaa 0 0 5px;
 }
 
 div#footer

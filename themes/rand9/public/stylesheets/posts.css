@@ -54,16 +54,17 @@
 {
 	color: #333;
 	margin-bottom: 15px;
+	margin-top: 20px;
 }
 
-.post-full #post-body h1,
-.post-full #post-body h2,
-.post-full #post-body h3,
-.post-full #post-body h4,
-.post-full #post-body h5,
-.post-full #post-body h6
+.post-meta h1,
+.post-meta h2,
+.post-meta h3,
+.post-meta h4,
+.post-meta h5,
+.post-meta h6
 {
-	margin-top: 20px;
+	margin-top: 0;
 }
 
 .post-full p.article-image

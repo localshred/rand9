@@ -1,0 +1,44 @@
+<div id="featured-content" class="split-panel cf">
+		
+	<div id="lead">
+		<h1 id="main-lead">We build <span class="emphasis">usable</span> web applications.</h1>
+		<!-- <h3 id="sub-lead"><a href="/contact" title="Contact rand9">Let's get started on yours right away &raquo;</a></h3> -->
+	</div>
+		
+	<div class="panel">
+		<h4 class="panel-title">Featured Article</h4>
+		<% if !@post.nil? %>
+			<div class="featured-item">
+				<div class="post-link"><a href="<%= post_path(@post) %>" title="<%= @post.title %>"><%= @post.title %> &raquo;</a></div>
+				<div class="post-meta quiet"><%= nice_date(@post.published_on.to_date) %></div>
+			</div>
+		<% else %>
+			<div>No posts found in the blog!</div>
+		<% end %>
+		<div class="goto-link"><a href="<%= blog_path %>" title="See recent articles">See recent articles &raquo;</a></div>
+		
+		<div class="corner top-left">&nbsp;</div>
+		<div class="corner top-right">&nbsp;</div>
+		<div class="corner bottom-left">&nbsp;</div>
+		<div class="corner bottom-right">&nbsp;</div>
+	</div>
+	
+	<div class="panel">
+		<h4 class="panel-title">Featured Project</h4>
+		<% if !@project.nil? %>
+			<div class="featured-item">
+				<div class="project-link"><a href="<%= project_path(@project) %>" title="<%= @project[:title] %>"><%= @project[:title] %> &raquo;</a></div>
+				<div class="project-meta quiet"><%= nice_date(@project[:completed_on].to_date) %></div>
+			</div>
+		<% else %>
+			<div>No projects yet!</div>
+		<% end %>
+		<div class="goto-link"><a href="<%= projects_path %>" title="See all projects">See all projects &raquo;</a></div>
+		
+		<div class="corner top-left">&nbsp;</div>
+		<div class="corner top-right">&nbsp;</div>
+		<div class="corner bottom-left">&nbsp;</div>
+		<div class="corner bottom-right">&nbsp;</div>
+	</div>	
+		
+</div>

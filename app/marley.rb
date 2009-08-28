@@ -142,15 +142,48 @@ helpers do
     result
   end
   
-  def is_cur_nav?(name)
-    request.env["REQUEST_PATH"].include?(name)
+  # checks to see if the request_path starts with the nav_path 
+  def is_cur_nav?(nav_path=nil)
+    ((nav_path.nil? && request.env["REQUEST_PATH"] == "/") || (!nav_path.nil? && request.env["REQUEST_PATH"].starts_with?(nav_path)))
   end # def is_cur_nav?
+  
+  def blog_path
+    "/#{Marley::Configuration.blog.pathname}"
+  end
+  
+  def projects_path
+    "/projects"
+  end
+  
+  def post_path(post)
+    "#{blog_path}/#{post.id}.html"
+  end
+  
+  def project_path(project)
+    "#{projects_path}/#{project[:id]}.html"
+  end
 
 end
 
 # -----------------------------------------------------------------------------
 
 get '/' do
+  @page_title = "#{Marley::Configuration.site.title}"
+  if Sinatra::Application.environment == :development
+    @post = Marley::Post.all.first
+  else
+    @post = Marley::Post.published.first
+  end
+  @project = {
+    :id => "",
+    :title => "Consultation for Mongol Horde Applications",
+    :completed_on => "2009-05-23 00:00:00"
+  }
+  # @project = nil
+  erb :home
+end
+
+get "/#{Marley::Configuration.blog.pathname}" do
   if Sinatra::Application.environment == :development
     @posts = Marley::Post.all
   else
@@ -160,19 +193,19 @@ get '/' do
   erb :'blog/index'
 end
 
-get '/feed' do
+get "/#{Marley::Configuration.blog.pathname}/feed" do
   @posts = Marley::Post.published
   last_modified( @posts.first.updated_on ) rescue nil    # Conditinal GET, send 304 if not modified
   builder :'blog/index'
 end
 
-get '/feed/comments' do
+get "/#{Marley::Configuration.blog.pathname}/feed/comments" do
   @comments = Marley::Comment.recent.ham
   last_modified( @comments.first.created_at ) rescue nil # Conditinal GET, send 304 if not modified
   builder :'blog/comments'
 end
 
-get '/*?/?:post_id.html' do
+get "/#{Marley::Configuration.blog.pathname}/*?/?:post_id.html" do
   redirect "/"+params[:post_id].to_s+'.html' unless params[:splat].first == '' || params[:splat].first == 'admin'
   protected! if params[:splat].first == 'admin'
   @post = Marley::Post[ params[:post_id] ]
@@ -181,7 +214,7 @@ get '/*?/?:post_id.html' do
   erb :'blog/post'
 end
 
-post '/:post_id/comments' do
+post "/#{Marley::Configuration.blog.pathname}/:post_id/comments" do
   @post = Marley::Post[ params[:post_id] ]
   throw :halt, [404, not_found ] unless @post
   params.merge!( {
@@ -199,11 +232,11 @@ post '/:post_id/comments' do
   end
 end
 
-get '/:post_id/comments' do
+get "/#{Marley::Configuration.blog.pathname}/:post_id/comments" do
   redirect "/"+params[:post_id].to_s+'.html#comments'
 end
 
-delete '/admin/:post_id/spam' do
+delete "/#{Marley::Configuration.blog.pathname}/admin/:post_id/spam" do
   protected!
   @post = Marley::Post[ params[:post_id] ]
   throw :halt, [404, not_found ] unless @post
@@ -222,14 +255,14 @@ delete '/admin/:post_id/spam' do
   redirect "#{@post.permalink}?spam_deleted=#{@comments.size}#comments"
 end
 
-get '/:post_id/feed' do
+get "/#{Marley::Configuration.blog.pathname}/:post_id/feed" do
   @post = Marley::Post[ params[:post_id] ]
   throw :halt, [404, not_found ] unless @post
   last_modified( @post.comments.last.created_at ) if @post.comments.last # Conditinal GET, send 304 if not modified
   builder :'blog/post'
 end
 
-get '/:post_id/*' do
+get "/#{Marley::Configuration.blog.pathname}/:post_id/*" do
   file = params[:splat].to_s.split('/').last
   redirect "/#{params[:post_id]}.html" unless file
   send_file( Marley::Configuration.blog_directory_path.join(params[:post_id], file), :disposition => 'inline' )
@@ -249,6 +282,6 @@ get '/projects' do
   erb :'projects/index'
 end
 
-# get '/contact' do
-#   erb :contact
-# end
+get '/contact' do
+  erb :contact
+end

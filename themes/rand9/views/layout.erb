@@ -45,8 +45,10 @@
 				<h1 id="logo" title="rand9 Technologies"><a href="/" title="Home"><%= rand9text true %></a></h1>
 				<div id="menu">
 					<ul class="cf">
-						<li<%= ' class="current"' if !is_cur_nav?('projects') %>><a href="/" title="blog home">blog</a></li>
-						<li<%= ' class="current"' if is_cur_nav?('projects') %>><a href="/projects" title="About rand9"x>projects</a></li>
+						<li<%= ' class="current"' if is_cur_nav? nil %>><a href="/" title="home">home</a></li>
+						<li<%= ' class="current"' if is_cur_nav? '/blog' %>><a href="/blog" title="blog">blog</a></li>
+						<li<%= ' class="current"' if is_cur_nav? '/projects' %>><a href="/projects" title="projects">projects</a></li>
+						<li<%= ' class="current"' if is_cur_nav? '/contact' %>><a href="/contact" title="contact">contact</a></li>
 						<li class="pulldown"><a href="javascript:void(0);" title="About rand9" id="about-link">about &darr;</a></li>
 					</ul>
 				</div>
