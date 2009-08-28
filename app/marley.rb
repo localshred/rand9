@@ -179,14 +179,15 @@ end
 get '/' do
   if Sinatra::Application.environment == :development
     @post = Marley::Post.all.first
+    @project = {
+      :id => "",
+      :title => "Consultation for Mongol Horde Applications",
+      :completed_on => "2009-05-23 00:00:00"
+    }
   else
     @post = Marley::Post.published.first
+    @project = nil
   end
-  @project = {
-    :id => "",
-    :title => "Consultation for Mongol Horde Applications",
-    :completed_on => "2009-05-23 00:00:00"
-  }
   
   @page_title = "#{config.site.title} :: We build usable web applications"
   erb :home
