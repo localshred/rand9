@@ -122,23 +122,62 @@ helpers do
     result
   end
   
+  # def nice_date(old_date)
+  #   diff = (Date.today - old_date).to_i
+  #   if diff == 0
+  #     result = 'Today'
+  #   elsif diff == 1
+  #     result = "Yesterday"
+  #   elsif diff <= 7
+  #     result = "#{diff} days ago"
+  #   elsif diff <= 30
+  #     result = "#{(diff/7).to_i} weeks ago"
+  #   elsif diff <= 365
+  #     result = "#{(diff/12).to_i} months ago"
+  #   elsif diff > 365
+  #     result = "#{(diff/365).to_i}+ years ago"
+  #   end
+  #   result
+  # end
+
   def nice_date(old_date)
-    diff = (Date.today - old_date).to_i
+    singular = false
+    past = false
+    
+    if old_date.is_a? Time
+      old_date = old_date.to_date
+    elsif !old_date.is_a? Date
+      old_date = Date.parse(old_date)
+    end
+    
+    if Date.today > old_date
+      past = true
+      diff = (Date.today - old_date).to_i
+    else
+      diff = (old_date - Date.today).to_i
+    end
+    
     if diff == 0
       result = 'Today'
+      singular = true
     elsif diff == 1
-      result = "Yesterday"
+      result = past ? "Yesterday" : "Tomorrow"
+      singular = true
     elsif diff <= 7
-      result = "#{diff} days ago"
-    elsif diff <= 30
-      result = "#{(diff/7).to_i} weeks ago"
+      result = "#{diff} days"
+    elsif diff <= 28
+      num_weeks = sprintf("%.1f", (Float(diff)/Float(7)))
+      result = "#{num_weeks} weeks"
     elsif diff <= 365
-      result = "#{(diff/12).to_i} months ago"
+      num_months = sprintf("%.1f", (Float(diff)/Float(30)))
+      result = "#{num_months} months"
     elsif diff > 365
-      result = "#{(diff/365).to_i}+ years ago"
+      num_years = sprintf("%.1f", (Float(diff)/Float(365)))
+      result = "#{num_years} years"
     end
-    result
+    result = (singular ? result : (past ? result+" ago" : "in "+result))
   end
+
   
   # checks to see if the request_path starts with the nav_path 
   def is_cur_nav?(nav_path=nil)
