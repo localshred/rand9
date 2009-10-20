@@ -64,8 +64,12 @@ $(document).ready(function(){
 		location.href = "/"+($(this).attr("id").replace(/post_/, ""))+".html";
 	});
 	
-	$("div.post-full p img").each(function(){
-		$(this).parent(0).parent(0).addClass("article-image");
-	});
-	
+  $("div.post-full p img").each(function(){
+    $(this).parent(0).addClass("article-image");
+  });
+  
+  $("div.post-full p a img").each(function(){
+    $(this).parent(0).parent(0).addClass("article-image");
+  });
+  
 });
