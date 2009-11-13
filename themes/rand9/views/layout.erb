@@ -12,7 +12,7 @@
 		<meta name="language" content="en">
 	
 		<link rel="Shortcut Icon" href="/favicon.ico" type="image/x-icon">
-	  <link href="http://feeds.feedburner.com/rand9" rel="alternate" title="Feed for <%= h(Marley::Configuration.blog.title) %>" type="application/atom+xml">
+	  <link href="http://feeds.feedburner.com/rand9-blog" rel="alternate" title="Feed for <%= h(Marley::Configuration.blog.title) %>" type="application/atom+xml">
 	  <link href="http://<%= hostname %>/<%= Marley::Configuration.blog.pathname %>/feed/comments" rel="alternate" title="Comments for <%= h(Marley::Configuration.blog.title) %>" type="application/atom+xml">
 	  <% if @post && is_cur_nav?('/blog') %>
 	  <link href="http://<%= hostname %>/<%= Marley::Configuration.blog.pathname %>/<%= @post.id %>/feed" rel="alternate" title="Feed for comments on article &ldquo;<%= h(@post.title) %>&rdquo; <%= h(Marley::Configuration.blog.title) %>" type="application/atom+xml">
