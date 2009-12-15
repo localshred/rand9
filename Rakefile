@@ -93,17 +93,22 @@ namespace :server do
   
   desc "Start server in production on Thin, port 4500"
   task :start do
-    exec "thin --rackup config/config.ru --daemonize --log log/thin.log --pid tmp/pids/thin.pid --environment production --port 4500 start && echo '> Marley started on http://localhost:4500'"
+    exec "thin -C /etc/thin/rand9.yml start && echo '> Marley started on http://localhost:4500'"
   end
   
   desc "Stop server in production"
   task :stop do
-    exec "thin --pid tmp/pids/thin.pid stop"
+    exec "thin -C /etc/thin/rand9.yml stop"
   end
   
   desc "Restart server in production"
   task :restart do 
-    exec "thin --pid tmp/pids/thin.pid restart"
+    exec "thin -C /etc/thin/rand9.yml restart"
+  end
+  
+  desc "Get server status with god"
+  task :status do
+    exec "god status"
   end
   
 end
